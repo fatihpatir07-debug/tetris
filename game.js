@@ -9,12 +9,17 @@ if ('serviceWorker' in navigator) {
         .catch((err) => console.log('SW Registration Failed', err));
 }
 
-// Register Service Worker
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js')
-        .then(() => console.log('Service Worker Registered'))
-        .catch((err) => console.log('SW Registration Failed', err));
-}
+// Prevent double-tap to zoom
+document.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 1) e.preventDefault();
+}, { passive: false });
+
+let lastTouchTime = 0;
+document.addEventListener('touchend', (e) => {
+    const now = performance.now();
+    if (now - lastTouchTime <= 300) e.preventDefault();
+    lastTouchTime = now;
+}, false);
 
 class AudioEngine {
     constructor() {
@@ -62,7 +67,6 @@ class AudioEngine {
 
 const COLS = 10;
 const ROWS = 20;
-const BLOCK_SIZE = 30;
 
 const COLORS = {
     'I': '#00f2ff', // Cyan
@@ -116,10 +120,9 @@ class Game {
     }
 
     resize() {
-        // Calculate block size based on container
         const container = this.canvas.parentElement;
-        const width = container.clientWidth - 20;
-        const height = container.clientHeight - 20;
+        const width = container.clientWidth - 10;
+        const height = container.clientHeight - 10;
 
         const possibleBlockSize = Math.min(width / COLS, height / ROWS);
         this.blockSize = Math.floor(possibleBlockSize);
@@ -127,8 +130,8 @@ class Game {
         this.canvas.width = COLS * this.blockSize;
         this.canvas.height = ROWS * this.blockSize;
 
-        this.nextCanvas.width = 4 * 15;
-        this.nextCanvas.height = 4 * 15;
+        this.nextCanvas.width = 60;
+        this.nextCanvas.height = 40;
     }
 
     createGrid() {
@@ -139,7 +142,6 @@ class Game {
         const keys = Object.keys(SHAPES);
         const type = keys[Math.floor(Math.random() * keys.length)];
         const shape = SHAPES[type];
-
         return {
             pos: { x: Math.floor(COLS / 2) - Math.floor(shape[0].length / 2), y: 0 },
             shape: shape,
@@ -149,11 +151,10 @@ class Game {
     }
 
     draw() {
-        // Clear background
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Draw grid lines (subtle)
-        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+        // Draw grid lines (More visible as per user request)
+        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
         this.ctx.lineWidth = 1;
         for (let x = 0; x <= COLS; x++) {
             this.ctx.beginPath();
@@ -186,18 +187,14 @@ class Game {
                     }
                 });
             });
-
-            // Draw ghost piece (projection)
             this.drawGhost();
         }
-
         this.drawNext();
     }
 
     drawBlock(ctx, x, y, color, size, isGhost = false) {
         const padding = size * 0.1;
         const innerSize = size - padding * 2;
-
         if (isGhost) {
             ctx.strokeStyle = color;
             ctx.globalAlpha = 0.3;
@@ -206,21 +203,15 @@ class Game {
             ctx.globalAlpha = 1.0;
             return;
         }
-
-        // Glow effect
         ctx.shadowBlur = size / 2;
         ctx.shadowColor = color;
-
-        // Main block
         ctx.fillStyle = color;
         ctx.beginPath();
-        const r = size * 0.15; // border radius
+        const r = size * 0.15;
         const px = x * size + padding;
         const py = y * size + padding;
         ctx.roundRect(px, py, innerSize, innerSize, r);
         ctx.fill();
-
-        // Shine/Highlight
         ctx.shadowBlur = 0;
         ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
         ctx.beginPath();
@@ -233,7 +224,6 @@ class Game {
         while (!this.collide(this.grid, { ...this.piece, pos: { x: ghostPos.x, y: ghostPos.y + 1 } })) {
             ghostPos.y++;
         }
-
         this.piece.shape.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value !== 0) {
@@ -245,10 +235,9 @@ class Game {
 
     drawNext() {
         this.nextCtx.clearRect(0, 0, this.nextCanvas.width, this.nextCanvas.height);
-        const size = 12;
+        const size = 10;
         const offsetX = (this.nextCanvas.width - this.nextPiece.shape[0].length * size) / 2;
         const offsetY = (this.nextCanvas.height - this.nextPiece.shape.length * size) / 2;
-
         this.nextPiece.shape.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value !== 0) {
@@ -295,11 +284,8 @@ class Game {
                 [shape[x][y], shape[y][x]] = [shape[y][x], shape[x][y]];
             }
         }
-        if (dir > 0) {
-            shape.forEach(row => row.reverse());
-        } else {
-            shape.reverse();
-        }
+        if (dir > 0) shape.forEach(row => row.reverse());
+        else shape.reverse();
     }
 
     playerRotate(dir) {
@@ -357,19 +343,14 @@ class Game {
         this.nextPiece = this.createPiece();
         this.piece.pos.y = 0;
         this.piece.pos.x = Math.floor(COLS / 2) - Math.floor(this.piece.shape[0].length / 2);
-
-        if (this.collide(this.grid, this.piece)) {
-            this.gameOverAction();
-        }
+        if (this.collide(this.grid, this.piece)) this.gameOverAction();
     }
 
     sweepGrid() {
         let rowCount = 1;
         outer: for (let y = ROWS - 1; y > 0; --y) {
             for (let x = 0; x < COLS; ++x) {
-                if (this.grid[y][x] === 0) {
-                    continue outer;
-                }
+                if (this.grid[y][x] === 0) continue outer;
             }
             const row = this.grid.splice(y, 1)[0].fill(0);
             this.grid.unshift(row);
@@ -378,7 +359,6 @@ class Game {
             this.lines++;
             rowCount *= 2;
             this.audio.playClear();
-
             if (this.lines % 10 === 0) {
                 this.level++;
                 this.dropInterval = Math.max(100, 1000 - (this.level - 1) * 100);
@@ -389,7 +369,6 @@ class Game {
     updateStats() {
         const scoreEl = document.getElementById('score');
         const levelEl = document.getElementById('level');
-
         if (scoreEl) scoreEl.innerText = this.score.toString().padStart(6, '0');
         if (levelEl) levelEl.innerText = this.level;
     }
@@ -402,15 +381,10 @@ class Game {
 
     update(time = 0) {
         if (this.gameOver || this.paused || !this.piece) return;
-
         const deltaTime = time - this.lastTime;
         this.lastTime = time;
-
         this.dropCounter += deltaTime;
-        if (this.dropCounter > this.dropInterval) {
-            this.playerDrop();
-        }
-
+        if (this.dropCounter > this.dropInterval) this.playerDrop();
         this.draw();
         requestAnimationFrame((t) => this.update(t));
     }
@@ -432,21 +406,17 @@ class Game {
             if (e.key === 'ArrowDown') this.playerDrop();
             if (e.key === 'ArrowUp') this.playerRotate(1);
             if (e.key === ' ') this.playerHardDrop();
-            if (e.key === 'q') this.playerRotate(-1);
-            if (e.key === 'w') this.playerRotate(1);
         });
 
         document.getElementById('start-btn').addEventListener('click', () => this.start());
         document.getElementById('restart-btn').addEventListener('click', () => this.start());
 
-        // Touch controls
         document.getElementById('ctrl-left').addEventListener('click', () => this.playerMove(-1));
         document.getElementById('ctrl-right').addEventListener('click', () => this.playerMove(1));
-        document.getElementById('ctrl-rotate').addEventListener('click', () => this.playerRotate(1));
         document.getElementById('ctrl-down').addEventListener('click', () => this.playerDrop());
+        document.getElementById('ctrl-rotate').addEventListener('click', () => this.playerRotate(1));
         document.getElementById('ctrl-drop').addEventListener('click', () => this.playerHardDrop());
 
-        // Modals
         const modalContainer = document.getElementById('modal-container');
         const settingsModal = document.getElementById('settings-modal');
         const infoModal = document.getElementById('info-modal');
@@ -455,14 +425,12 @@ class Game {
             this.paused = true;
             modalContainer.classList.remove('hidden');
             settingsModal.classList.remove('hidden');
-            infoModal.classList.add('hidden');
         });
 
         document.getElementById('info-btn').addEventListener('click', () => {
             this.paused = true;
             modalContainer.classList.remove('hidden');
             infoModal.classList.remove('hidden');
-            settingsModal.classList.add('hidden');
         });
 
         document.querySelectorAll('.close-modal').forEach(btn => {
@@ -471,7 +439,6 @@ class Game {
                 settingsModal.classList.add('hidden');
                 infoModal.classList.add('hidden');
                 if (!this.gameOver && !document.getElementById('start-screen').classList.contains('hidden')) {
-                    // Stay paused if on start screen
                 } else {
                     this.paused = false;
                     this.update();
@@ -495,7 +462,6 @@ class Game {
     }
 }
 
-// Start game on load
 window.onload = () => {
     window.game = new Game();
 };

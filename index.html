@@ -103,35 +103,23 @@
                     <p>BOŞLUK / ⤓ : Hızlı Düşüş</p>
                     <hr>
                     <p>Modern & Premium Tetris Deneyimi</p>
-                    <p>© 2026 Antigravity Studio</p>
+                    <p>© 2026 Fatih PATIR</p>
                 </div>
                 <button class="glass-button close-modal">KAPAT</button>
             </div>
         </div>
 
-        <div id="game-info-right" class="glass-panel">
-            <div class="preview-box">
-                <span class="label">SIRADAKİ</span>
-                <canvas id="next-canvas"></canvas>
-            </div>
-            <div class="stat-box">
-                <span class="label">SATIR</span>
-                <span id="lines" class="value">0</span>
-            </div>
-        </div>
-        </main>
-
         <footer id="controls">
-            <div class="ctrl-group sides">
-                <button class="ctrl-btn circle" id="ctrl-left" aria-label="Sol">←</button>
-                <button class="ctrl-btn circle" id="ctrl-right" aria-label="Sağ">→</button>
+            <div id="left-cluster" class="ctrl-cluster">
+                <div class="move-row">
+                    <button class="ctrl-btn" id="ctrl-left" aria-label="Sol">←</button>
+                    <button class="ctrl-btn" id="ctrl-right" aria-label="Sağ">→</button>
+                </div>
+                <button class="ctrl-btn" id="ctrl-down" aria-label="Aşağı">↓</button>
             </div>
-            <div class="ctrl-group main-actions">
-                <button class="ctrl-btn circle large" id="ctrl-rotate" aria-label="Döndür">↻</button>
-            </div>
-            <div class="ctrl-group sides">
-                <button class="ctrl-btn circle" id="ctrl-down" aria-label="Aşağı">↓</button>
-                <button class="ctrl-btn circle" id="ctrl-drop" aria-label="Hızlı">⤓</button>
+            <div id="right-cluster" class="ctrl-cluster">
+                <button class="ctrl-btn" id="ctrl-rotate" aria-label="Döndür">↻</button>
+                <button class="ctrl-btn" id="ctrl-drop" aria-label="Hızlı">⤓</button>
             </div>
         </footer>
     </div>
