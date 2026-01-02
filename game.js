@@ -686,6 +686,18 @@ class Game {
             this.start();
         });
 
+        const pauseBtn = document.getElementById('pause-btn');
+        const handlePause = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            pauseBtn.blur();
+            this.togglePause();
+        };
+        pauseBtn.addEventListener('click', handlePause);
+        pauseBtn.addEventListener('touchstart', handlePause, { passive: false });
+
+        document.getElementById('resume-btn').addEventListener('click', () => this.togglePause());
+
         // TOUCH CONTROLS (Improved)
         const setupTouchBtn = (id, actionStart, actionEnd) => {
             const btn = document.getElementById(id);

@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <meta name="theme-color" content="#0a0a0c">
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
     <link rel="manifest" href="manifest.json">
 </head>
 
@@ -17,12 +18,15 @@
     <div id="app-container">
         <header>
             <div id="top-bar" class="glass-panel">
-                <button id="info-btn" class="icon-btn" aria-label="Bilgi">ⓘ</button>
+                <button id="pause-btn" class="icon-btn" aria-label="Durdur">❚❚</button>
                 <div class="title-wrapper">
                     <h1>NEON<span class="highlight">TETRIS</span></h1>
                     <div class="subtitle">by Fatih</div>
                 </div>
-                <button id="settings-btn" class="icon-btn" aria-label="Ayarlar">⚙</button>
+                <div class="header-right">
+                    <button id="info-btn" class="icon-btn" aria-label="Bilgi">ⓘ</button>
+                    <button id="settings-btn" class="icon-btn" aria-label="Ayarlar">⚙</button>
+                </div>
             </div>
         </header>
 
@@ -54,6 +58,11 @@
                         <h2 id="overlay-title">OYUN BİTTİ</h2>
                         <button id="restart-btn" class="glass-button">TEKRAR DENE</button>
                     </div>
+                </div>
+
+                <div id="paused-overlay" class="hidden">
+                    <h2>DURAKLATILDI</h2>
+                    <button id="resume-btn" class="glass-button">DEVAM ET</button>
                 </div>
 
                 <div id="start-screen">

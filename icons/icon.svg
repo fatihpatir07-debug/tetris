@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="neonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00f2ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bc13fe;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="20" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" rx="120" fill="#0b0b0f" />
+  
+  <!-- Glass Border -->
+  <rect x="10" y="10" width="492" height="492" rx="110" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="20" />
+  
+  <!-- T Shape with Glow -->
+  <g filter="url(#glow)" transform="translate(136, 156)">
+    <!-- Top Bar: 3 blocks wide -->
+    <!-- Block 1 -->
+    <rect x="0" y="0" width="76" height="76" rx="12" fill="url(#neonGrad)" stroke="rgba(255,255,255,0.4)" stroke-width="2" />
+    <!-- Block 2 (Center) -->
+    <rect x="80" y="0" width="76" height="76" rx="12" fill="url(#neonGrad)" stroke="rgba(255,255,255,0.4)" stroke-width="2" />
+    <!-- Block 3 -->
+    <rect x="160" y="0" width="76" height="76" rx="12" fill="url(#neonGrad)" stroke="rgba(255,255,255,0.4)" stroke-width="2" />
+    
+    <!-- Bottom Bar: 1 block -->
+    <rect x="80" y="80" width="76" height="76" rx="12" fill="url(#neonGrad)" stroke="rgba(255,255,255,0.4)" stroke-width="2" />
+  </g>
+</svg>

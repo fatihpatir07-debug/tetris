@@ -1,4 +1,4 @@
-const CACHE_NAME = 'neon-tetris-v1';
+const CACHE_NAME = 'neon-tetris-v3';
 const ASSETS = [
     './',
     './index.html',

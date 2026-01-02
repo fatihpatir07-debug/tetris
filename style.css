@@ -69,6 +69,8 @@ body {
     padding: 8px 15px;
     margin-top: 5px;
     border-radius: 12px;
+    z-index: 1000;
+    position: relative;
 }
 
 .title-wrapper {
@@ -294,11 +296,15 @@ h1 {
 /* Modals & UI Components */
 .icon-btn {
     background: none;
-    border: 1px solid var(--glass-border);
+    border: none;
+    font-size: 1.4rem;
     color: white;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
+    cursor: pointer;
+    text-shadow: 0 0 5px var(--accent-color);
+    transition: transform 0.1s;
+    z-index: 50;
+    /* Ensure clickable */
+    padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
