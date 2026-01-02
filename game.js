@@ -118,11 +118,11 @@ class Game {
     resize() {
         // Calculate block size based on container
         const container = this.canvas.parentElement;
-        const width = container.clientWidth - 10;
-        const height = container.clientHeight - 10;
+        const width = container.clientWidth - 20;
+        const height = container.clientHeight - 20;
 
         const possibleBlockSize = Math.min(width / COLS, height / ROWS);
-        this.blockSize = possibleBlockSize;
+        this.blockSize = Math.floor(possibleBlockSize);
 
         this.canvas.width = COLS * this.blockSize;
         this.canvas.height = ROWS * this.blockSize;
@@ -387,9 +387,11 @@ class Game {
     }
 
     updateStats() {
-        document.getElementById('score').innerText = this.score.toString().padStart(6, '0');
-        document.getElementById('level').innerText = this.level;
-        document.getElementById('lines').innerText = this.lines;
+        const scoreEl = document.getElementById('score');
+        const levelEl = document.getElementById('level');
+
+        if (scoreEl) scoreEl.innerText = this.score.toString().padStart(6, '0');
+        if (levelEl) levelEl.innerText = this.level;
     }
 
     gameOverAction() {
