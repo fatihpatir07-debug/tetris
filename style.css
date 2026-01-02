@@ -524,10 +524,43 @@ h1 {
 }
 
 /* Settings Item Spacing */
-.setting-item {
-    margin-bottom: 20px;
+/* Install Guide Styling */
+.install-guide {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
+    padding: 10px;
+    text-align: left;
+}
+
+.guide-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.guide-section h4 {
+    color: var(--accent-color);
+    margin-bottom: 8px;
+    font-size: 1rem;
+    display: flex;
     align-items: center;
+    gap: 10px;
+}
+
+.os-icon {
+    font-size: 1.2rem;
+}
+
+.guide-section p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.separator {
+    border: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 10px;
 }

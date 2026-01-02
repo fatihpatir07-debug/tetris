@@ -686,15 +686,7 @@ class Game {
             this.start();
         });
 
-        const pauseBtn = document.getElementById('pause-btn');
-        const handlePause = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            pauseBtn.blur();
-            this.togglePause();
-        };
-        pauseBtn.addEventListener('click', handlePause);
-        pauseBtn.addEventListener('touchstart', handlePause, { passive: false });
+
 
         document.getElementById('resume-btn').addEventListener('click', () => this.togglePause());
 
@@ -750,6 +742,7 @@ class Game {
         const modalContainer = document.getElementById('modal-container');
         const settingsModal = document.getElementById('settings-modal');
         const infoModal = document.getElementById('info-modal');
+        const installModal = document.getElementById('install-modal');
 
         const openModal = (modal) => {
             this.paused = true;
@@ -757,6 +750,7 @@ class Game {
             // Hide all modals first
             settingsModal.classList.add('hidden');
             infoModal.classList.add('hidden');
+            installModal.classList.add('hidden');
             // Show target
             modal.classList.remove('hidden');
         };
@@ -765,6 +759,7 @@ class Game {
             modalContainer.classList.add('hidden');
             settingsModal.classList.add('hidden');
             infoModal.classList.add('hidden');
+            installModal.classList.add('hidden');
             if (!this.gameOver && document.getElementById('start-screen').classList.contains('hidden')) {
                 this.paused = false;
                 this.lastTime = performance.now();
@@ -774,6 +769,7 @@ class Game {
 
         document.getElementById('settings-btn').addEventListener('click', () => openModal(settingsModal));
         document.getElementById('info-btn').addEventListener('click', () => openModal(infoModal));
+        document.getElementById('install-btn').addEventListener('click', () => openModal(installModal));
 
         document.querySelectorAll('.close-modal').forEach(btn => {
             btn.addEventListener('click', closeModal);

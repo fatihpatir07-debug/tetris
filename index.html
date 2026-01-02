@@ -18,12 +18,14 @@
     <div id="app-container">
         <header>
             <div id="top-bar" class="glass-panel">
-                <button id="pause-btn" class="icon-btn" aria-label="Durdur">❚❚</button>
+                <button id="pause-btn" class="icon-btn" aria-label="Durdur"
+                    onclick="if(window.game) window.game.togglePause()">❚❚</button>
                 <div class="title-wrapper">
                     <h1>NEON<span class="highlight">TETRIS</span></h1>
                     <div class="subtitle">by Fatih</div>
                 </div>
                 <div class="header-right">
+                    <button id="install-btn" class="icon-btn" aria-label="Yükle">📥</button>
                     <button id="info-btn" class="icon-btn" aria-label="Bilgi">ⓘ</button>
                     <button id="settings-btn" class="icon-btn" aria-label="Ayarlar">⚙</button>
                 </div>
@@ -72,6 +74,23 @@
         </main>
         <!-- Modals -->
         <div id="modal-container" class="hidden">
+            <div id="install-modal" class="glass-panel modal hidden">
+                <h3>UYGULAMAYI YÜKLE</h3>
+                <div class="info-content install-guide">
+                    <div class="guide-section">
+                        <h4><span class="os-icon">🤖</span> Android</h4>
+                        <p>Tarayıcı menüsünü (⋮) açın ve <strong>"Uygulamayı Yükle"</strong> seçeneğine tıklayın.</p>
+                    </div>
+                    <hr class="separator">
+                    <div class="guide-section">
+                        <h4><span class="os-icon">🍎</span> iOS (iPhone)</h4>
+                        <p><strong>"Paylaş"</strong> butonuna basın ve <strong>"Ana Ekrana Ekle"</strong> seçeneğini
+                            seçin.</p>
+                    </div>
+                </div>
+                <button class="glass-button close-modal">ANLADIM</button>
+            </div>
+
             <div id="settings-modal" class="glass-panel modal hidden">
                 <h3>AYARLAR</h3>
                 <div class="setting-item">
