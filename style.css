@@ -200,29 +200,37 @@ h1 {
 
 #left-cluster {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
     gap: 15px;
     align-items: center;
+    justify-items: center;
 }
 
 /* Positioning for D-Pad feel */
 #ctrl-left {
     grid-column: 1;
-    grid-row: 2;
-    transform: translateY(-10px);
+    grid-row: 1;
+    transform: none;
 }
 
 #ctrl-right {
     grid-column: 2;
-    grid-row: 2;
-    transform: translateY(-10px);
+    grid-row: 1;
+    transform: none;
 }
 
 #ctrl-down {
     grid-column: 1 / span 2;
     grid-row: 2;
-    transform: translateY(60px) scale(0.9);
+    transform: none;
+    /* Reset specific styles */
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
 }
 
 .move-row {
@@ -235,60 +243,86 @@ h1 {
     flex-direction: column;
     align-items: flex-end;
     gap: 25px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
+    /* Align with D-pad */
 }
 
+/* 3D Cyber Buttons */
 .ctrl-btn {
     width: 70px;
     height: 70px;
-    border-radius: 20px;
-    /* Squircle */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: white;
-    font-size: 1.8rem;
+    border-radius: 50%;
+    border: none;
+    font-size: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.1s ease;
     cursor: pointer;
     touch-action: manipulation;
+    transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    /* Default - will be overridden by colors */
+    background: linear-gradient(145deg, #1a1a20, #0b0b0f);
+    box-shadow:
+        5px 5px 10px rgba(0, 0, 0, 0.5),
+        -2px -2px 6px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-.ctrl-btn:active {
-    transform: scale(0.92) !important;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 15px currentColor;
-    border-color: currentColor;
+.ctrl-btn:active,
+.ctrl-btn.active {
+    transform: scale(0.95) translateY(2px);
+    box-shadow:
+        2px 2px 5px rgba(0, 0, 0, 0.5),
+        inset 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Specific Button Styles */
+/* Specific Colors - 3D Neon */
 #ctrl-left,
-#ctrl-right {
-    color: var(--neon-blue);
-    border-color: rgba(0, 242, 255, 0.3);
+#ctrl-right,
+#ctrl-down {
+    background: linear-gradient(180deg, rgba(0, 242, 255, 0.1), rgba(0, 242, 255, 0.05));
+    border: 2px solid rgba(0, 242, 255, 0.3);
+    color: #00f2ff;
+    box-shadow:
+        0 4px 0 rgba(0, 242, 255, 0.2),
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.8);
 }
 
-#ctrl-down {
-    width: 100%;
-    height: 50px;
-    border-radius: 15px;
-    font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.8);
-    background: rgba(255, 255, 255, 0.02);
+#ctrl-left:active,
+#ctrl-right:active,
+#ctrl-down:active {
+    box-shadow:
+        0 0 0 rgba(0, 242, 255, 0.2),
+        0 2px 5px rgba(0, 0, 0, 0.4),
+        inset 0 0 15px rgba(0, 242, 255, 0.2);
+    transform: translateY(4px);
+    border-color: #00f2ff;
 }
 
 #ctrl-rotate {
-    width: 90px;
-    height: 90px;
-    background: rgba(188, 19, 254, 0.1);
-    border: 1px solid rgba(188, 19, 254, 0.5);
-    color: var(--neon-purple);
-    font-size: 2.5rem;
-    box-shadow: 0 0 20px rgba(188, 19, 254, 0.15);
+    background: linear-gradient(180deg, rgba(188, 19, 254, 0.1), rgba(188, 19, 254, 0.05));
+    border: 2px solid rgba(188, 19, 254, 0.3);
+    color: #bc13fe;
+    box-shadow:
+        0 4px 0 rgba(188, 19, 254, 0.2),
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 10px rgba(188, 19, 254, 0.8);
+    width: 85px;
+    height: 85px;
+    font-size: 2.2rem;
+}
+
+#ctrl-rotate:active {
+    box-shadow:
+        0 0 0 rgba(188, 19, 254, 0.2),
+        0 2px 5px rgba(0, 0, 0, 0.4),
+        inset 0 0 15px rgba(188, 19, 254, 0.2);
+    transform: translateY(4px);
+    border-color: #bc13fe;
 }
 
 #ctrl-drop {
@@ -451,21 +485,39 @@ h1 {
     gap: 8px;
 }
 
+/* Info Icons Matching Controls */
 .key-icon {
     width: 36px;
     height: 36px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    /* Squircle like game buttons */
+    border-radius: 50%;
+    /* Match round buttons */
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    color: var(--accent-color);
     font-size: 1.1rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    /* 3D Cyan Style (Mini version) */
+    background: linear-gradient(180deg, rgba(0, 242, 255, 0.1), rgba(0, 242, 255, 0.05));
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    color: #00f2ff;
+    box-shadow:
+        0 2px 0 rgba(0, 242, 255, 0.2),
+        0 3px 5px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 5px rgba(0, 242, 255, 0.6);
+}
+
+/* Specific tweak for Up/Rotate icon in info to be Purple */
+.ctrl-group:nth-child(2) .key-icon {
+    background: linear-gradient(180deg, rgba(188, 19, 254, 0.1), rgba(188, 19, 254, 0.05));
+    border: 1px solid rgba(188, 19, 254, 0.3);
+    color: #bc13fe;
+    box-shadow:
+        0 2px 0 rgba(188, 19, 254, 0.2),
+        0 3px 5px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 5px rgba(188, 19, 254, 0.6);
 }
 
 .action-label {
