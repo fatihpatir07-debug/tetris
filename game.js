@@ -643,11 +643,28 @@ class Game {
         requestAnimationFrame((t) => this.update(t));
     }
 
+    togglePause() {
+        if (this.gameOver) return;
+        this.paused = !this.paused;
+        const pausedOverlay = document.getElementById('paused-overlay');
+
+        if (this.paused) {
+            pausedOverlay.classList.remove('hidden');
+        } else {
+            pausedOverlay.classList.add('hidden');
+            this.lastTime = performance.now();
+            this.update(this.lastTime);
+        }
+    }
+
     start() {
         this.audio.init();
         if (this.gameOver) this.init();
         document.getElementById('start-screen').classList.add('hidden');
         document.getElementById('overlay').classList.add('hidden');
+        document.getElementById('paused-overlay').classList.add('hidden');
+        this.paused = false;
+
         if (!this.piece) this.piece = this.createPiece(); // Ensure piece exists
         this.lastTime = performance.now();
         this.update(this.lastTime);
