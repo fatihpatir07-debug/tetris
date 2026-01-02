@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEON TETRIS - Premium PWA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0a0a0c">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <div id="app-container">
+        <header>
+            <button id="info-btn" class="icon-btn" aria-label="Bilgi">ⓘ</button>
+            <h1>NEON<span class="highlight">TETRIS</span></h1>
+            <button id="settings-btn" class="icon-btn" aria-label="Ayarlar">⚙</button>
+        </header>
+
+        <main>
+            <div id="game-info-left" class="glass-panel">
+                <div class="stat-box">
+                    <span class="label">SKOR</span>
+                    <span id="score" class="value">000000</span>
+                </div>
+                <div class="stat-box">
+                    <span class="label">SEVİYE</span>
+                    <span id="level" class="value">1</span>
+                </div>
+            </div>
+
+            <div id="game-board-container" class="glass-panel main-panel">
+                <canvas id="game-canvas"></canvas>
+                <div id="overlay" class="hidden">
+                    <div class="overlay-content">
+                        <h2 id="overlay-title">OYUN BİTTİ</h2>
+                        <button id="restart-btn" class="glass-button">TEKRAR DENE</button>
+                    </div>
+                </div>
+                <div id="start-screen">
+                    <button id="start-btn" class="glass-button large">BAŞLA</button>
+                </div>
+            </div>
+
+            <!-- Modals -->
+            <div id="modal-container" class="hidden">
+                <div id="settings-modal" class="glass-panel modal hidden">
+                    <h3>AYARLAR</h3>
+                    <div class="setting-item">
+                        <span>SES</span>
+                        <label class="switch">
+                            <input type="checkbox" id="sound-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span>TEMA</span>
+                        <select id="theme-select" class="glass-select">
+                            <option value="neon">Neon (Mavi)</option>
+                            <option value="cyber">Cyber (Pembe)</option>
+                            <option value="emerald">Zümrüt (Yeşil)</option>
+                            <option value="gold">Altın (Sarı)</option>
+                        </select>
+                    </div>
+                    <button class="glass-button close-modal">KAPAT</button>
+                </div>
+
+                <div id="info-modal" class="glass-panel modal hidden">
+                    <h3>BİLGİ</h3>
+                    <div class="info-content">
+                        <p><strong>Geliştiren:</strong> <span id="user-name">Fatih</span></p>
+                        <p style="font-size: 0.8rem; opacity: 0.8;">Bilişim Teknolojileri Öğretmeni</p>
+                        <p style="font-size: 0.8rem; opacity: 0.8;">Nene Hatun MTAL - Korkuteli/Antalya</p>
+                        <p><strong>Web:</strong> <a href="https://fatihpatir.github.io/web" id="user-web"
+                                class="neon-link" target="_blank">fatihpatir.github.io/web</a></p>
+                        <hr>
+                        <p><strong>Nasıl Oynanır?</strong></p>
+                        <p>← → : Hareket</p>
+                        <p>↑ : Döndür</p>
+                        <p>↓ : Yumuşak Düşüş</p>
+                        <p>BOŞLUK / ⤓ : Hızlı Düşüş</p>
+                        <hr>
+                        <p>Modern & Premium Tetris Deneyimi</p>
+                        <p>© 2026 Antigravity Studio</p>
+                    </div>
+                    <button class="glass-button close-modal">KAPAT</button>
+                </div>
+            </div>
+
+            <div id="game-info-right" class="glass-panel">
+                <div class="preview-box">
+                    <span class="label">SIRADAKİ</span>
+                    <canvas id="next-canvas"></canvas>
+                </div>
+                <div class="stat-box">
+                    <span class="label">SATIR</span>
+                    <span id="lines" class="value">0</span>
+                </div>
+            </div>
+        </main>
+
+        <footer id="controls" class="glass-panel">
+            <button class="ctrl-btn" id="ctrl-left" aria-label="Sol">←</button>
+            <div class="center-controls">
+                <button class="ctrl-btn" id="ctrl-rotate" aria-label="Döndür">↻</button>
+                <button class="ctrl-btn" id="ctrl-drop" aria-label="Hızlı">⤓</button>
+                <button class="ctrl-btn" id="ctrl-down" aria-label="Aşağı">↓</button>
+            </div>
+            <button class="ctrl-btn" id="ctrl-right" aria-label="Sağ">→</button>
+        </footer>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+
+</html>
