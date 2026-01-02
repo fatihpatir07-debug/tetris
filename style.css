@@ -107,6 +107,8 @@ h1 {
     gap: 8px;
     margin: 10px 0;
     min-height: 0;
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 #sidebar-left {
@@ -180,10 +182,15 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0 15px 30px 15px;
-    height: 180px;
+    padding: 10px 15px 30px 15px;
+    /* More bottom padding for Safe Area */
+    height: auto;
+    min-height: 160px;
+    /* Ensure height */
     pointer-events: none;
-    /* Allow clicks to pass through empty space */
+    z-index: 100;
+    margin-top: -10px;
+    width: 100%;
 }
 
 .ctrl-cluster {
@@ -445,17 +452,19 @@ h1 {
 }
 
 .key-icon {
-    width: 30px;
-    height: 30px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 10px;
+    /* Squircle like game buttons */
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
     color: var(--accent-color);
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
