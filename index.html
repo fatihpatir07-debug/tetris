@@ -29,6 +29,10 @@
         <main id="game-arena">
             <aside id="sidebar-left" class="glass-panel">
                 <div class="stat-box">
+                    <span class="label">EN YÜKSEK</span>
+                    <span id="high-score" class="value" style="color: var(--neon-gold)">000000</span>
+                </div>
+                <div class="stat-box">
                     <span class="label">SKOR</span>
                     <span id="score" class="value">000000</span>
                 </div>
@@ -70,61 +74,66 @@
                 </div>
                 <div class="setting-item">
                     <span>TEMA</span>
-                    <select id="theme-select" class="glass-select">
-                        <option value="neon">Neon (Mavi)</option>
-                        <option value="cyber">Cyber (Pembe)</option>
-                        <option value="emerald">Zümrüt (Yeşil)</option>
-                        <option value="gold">Altın (Sarı)</option>
-                    </select>
+                    <div id="theme-options">
+                        <button class="theme-btn active" data-value="neon" style="--btn-color: #00f2ff"
+                            aria-label="Neon"></button>
+                        <button class="theme-btn" data-value="cyber" style="--btn-color: #ff00de"
+                            aria-label="Cyber"></button>
+                        <button class="theme-btn" data-value="emerald" style="--btn-color: #39ff14"
+                            aria-label="Emerald"></button>
+                        <button class="theme-btn" data-value="gold" style="--btn-color: #ffcc00"
+                            aria-label="Gold"></button>
+                    </div>
                 </div>
                 <button class="glass-button close-modal">KAPAT</button>
             </div>
 
             <div id="info-modal" class="glass-panel modal hidden">
-                <h3>BİLGİ</h3>
-                <div class="info-content">
-                    <p><strong>Geliştiren:</strong> <a href="https://fatihpatir.github.io/web" target="_blank"
-                            class="neon-link name-link">Fatih PATIR</a></p>
-                    <p style="font-size: 0.75rem; opacity: 0.8; margin-top: 5px;">Korkuteli Nene Hatun MTAL</p>
-                    <p style="font-size: 0.75rem; opacity: 0.8;">Bilişim Teknolojileri Öğretmeni</p>
-                    <p><strong>Web:</strong> <a href="https://fatihpatir.github.io/web" id="user-web" class="neon-link"
-                            target="_blank">fatihpatir.github.io/web</a></p>
-                    <hr>
-                    <div class="pwa-guide">
-                        <p><strong>Uygulama Olarak Yükle:</strong></p>
-                        <p>📱 <strong>iOS (iPhone):</strong> "Paylaş" butonuna basın ve "Ana Ekrana Ekle"yi seçin.</p>
-                        <p>🤖 <strong>Android:</strong> Tarayıcı ayarlarından "Uygulamayı Yükle"yi seçin.</p>
+                <div class="info-content minimal-info">
+                    <div class="dev-card-elegant">
+                        <div class="dev-info-center">
+                            <a href="https://fatihpatir.github.io/web" target="_blank" class="dev-name-large">Fatih
+                                PATIR</a>
+                            <span class="dev-role">Bilişim Teknolojileri Öğretmeni</span>
+                            <span class="school">Korkuteli Nene Hatun MTAL</span>
+                        </div>
                     </div>
-                    <hr>
-                    <p><strong>Nasıl Oynanır?</strong></p>
-                    <p>← → : Hareket</p>
-                    <p>↑ : Döndür</p>
-                    <p>↓ : Yumuşak Düşüş</p>
-                    <p>BOŞLUK / ⤓ : Hızlı Düşüş</p>
-                    <hr>
-                    <p>Modern & Premium Tetris Deneyimi</p>
-                    <p>© 2026 Fatih PATIR</p>
+
+                    <div class="controls-elegant">
+                        <div class="ctrl-group">
+                            <span class="key-icon">←</span>
+                            <span class="key-icon">→</span>
+                            <span class="action-label">Hareket</span>
+                        </div>
+                        <div class="ctrl-group">
+                            <span class="key-icon">↑</span>
+                            <span class="action-label">Döndür</span>
+                        </div>
+                        <div class="ctrl-group">
+                            <span class="key-icon">↓</span>
+                            <span class="action-label">Hızlan</span>
+                        </div>
+                    </div>
+                    <button class="glass-button close-modal">KAPAT</button>
                 </div>
-                <button class="glass-button close-modal">KAPAT</button>
             </div>
+
+            <footer id="controls">
+                <div id="left-cluster" class="ctrl-cluster">
+                    <div class="move-row">
+                        <button class="ctrl-btn" id="ctrl-left" aria-label="Sol">←</button>
+                        <button class="ctrl-btn" id="ctrl-right" aria-label="Sağ">→</button>
+                    </div>
+                    <button class="ctrl-btn" id="ctrl-down" aria-label="Aşağı">↓</button>
+                </div>
+                <div id="right-cluster" class="ctrl-cluster">
+                    <button class="ctrl-btn" id="ctrl-rotate" aria-label="Döndür">↻</button>
+                    <!-- Hard drop removed as per request -->
+                </div>
+            </footer>
         </div>
 
-        <footer id="controls">
-            <div id="left-cluster" class="ctrl-cluster">
-                <div class="move-row">
-                    <button class="ctrl-btn" id="ctrl-left" aria-label="Sol">←</button>
-                    <button class="ctrl-btn" id="ctrl-right" aria-label="Sağ">→</button>
-                </div>
-                <button class="ctrl-btn" id="ctrl-down" aria-label="Aşağı">↓</button>
-            </div>
-            <div id="right-cluster" class="ctrl-cluster">
-                <button class="ctrl-btn" id="ctrl-rotate" aria-label="Döndür">↻</button>
-                <button class="ctrl-btn" id="ctrl-drop" aria-label="Hızlı">⤓</button>
-            </div>
-        </footer>
-    </div>
-
-    <script src="game.js"></script>
+        <script src="game.js"></script>
 </body>
 
 </html>

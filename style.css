@@ -108,7 +108,7 @@ h1 {
 }
 
 #sidebar-left {
-    width: 80px;
+    width: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,24 +120,25 @@ h1 {
 .stat-box {
     text-align: center;
     background: rgba(255, 255, 255, 0.03);
-    padding: 8px 2px;
+    padding: 8px 4px;
     border-radius: 10px;
     border: 1px solid var(--glass-border);
 }
 
 .label {
     display: block;
-    font-size: 0.55rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
-    letter-spacing: 1px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.5px;
     margin-bottom: 2px;
 }
 
 .value {
-    font-size: 0.9rem;
+    font-size: 1.0rem;
     font-weight: 800;
     color: var(--neon-blue);
+    letter-spacing: 1px;
 }
 
 #game-board-container {
@@ -172,80 +173,122 @@ h1 {
     height: 40px;
 }
 
-/* Controls Layout - Gamepad Style */
+/* Controls Layout - Cyberpad Style */
 #controls {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0 10px 20px 10px;
-    height: 170px;
+    padding: 0 15px 30px 15px;
+    height: 180px;
+    pointer-events: none;
+    /* Allow clicks to pass through empty space */
 }
 
 .ctrl-cluster {
     display: flex;
-    gap: 12px;
+    pointer-events: auto;
 }
 
 #left-cluster {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
     align-items: center;
+}
+
+/* Positioning for D-Pad feel */
+#ctrl-left {
+    grid-column: 1;
+    grid-row: 2;
+    transform: translateY(-10px);
+}
+
+#ctrl-right {
+    grid-column: 2;
+    grid-row: 2;
+    transform: translateY(-10px);
+}
+
+#ctrl-down {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    transform: translateY(60px) scale(0.9);
 }
 
 .move-row {
-    display: flex;
-    gap: 12px;
+    display: contents;
 }
+
+/* Remove old wrapper behavior */
 
 #right-cluster {
     flex-direction: column;
-    gap: 15px;
+    align-items: flex-end;
+    gap: 25px;
+    padding-bottom: 10px;
 }
 
 .ctrl-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid var(--glass-border);
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    /* Squircle */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4), inset -2px -2px 5px rgba(255, 255, 255, 0.05);
-    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.1s ease;
     cursor: pointer;
+    touch-action: manipulation;
 }
 
 .ctrl-btn:active {
-    transform: scale(0.9);
-    box-shadow: 0 0 20px currentColor;
+    transform: scale(0.92) !important;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px currentColor;
+    border-color: currentColor;
 }
 
-/* Vibrant Button Colors */
+/* Specific Button Styles */
 #ctrl-left,
-#ctrl-right,
+#ctrl-right {
+    color: var(--neon-blue);
+    border-color: rgba(0, 242, 255, 0.3);
+}
+
 #ctrl-down {
-    border-color: #00f2ff;
-    color: #00f2ff;
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.02);
 }
 
 #ctrl-rotate {
-    width: 80px;
-    height: 80px;
-    border-color: #bc13fe;
-    color: #bc13fe;
-    font-size: 2.2rem;
-    box-shadow: 0 0 15px rgba(188, 19, 254, 0.2);
+    width: 90px;
+    height: 90px;
+    background: rgba(188, 19, 254, 0.1);
+    border: 1px solid rgba(188, 19, 254, 0.5);
+    color: var(--neon-purple);
+    font-size: 2.5rem;
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.15);
 }
 
 #ctrl-drop {
-    width: 65px;
-    height: 65px;
-    border-color: #ffcc00;
-    color: #ffcc00;
-    box-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255, 204, 0, 0.1);
+    border: 1px solid rgba(255, 204, 0, 0.5);
+    color: var(--neon-gold);
 }
 
 /* Modals & UI Components */
@@ -280,6 +323,8 @@ h1 {
 .glass-button.large {
     font-size: 1.5rem;
     padding: 15px 40px;
+    margin-top: 15px;
+    width: 100%;
 }
 
 .modal {
@@ -288,11 +333,12 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 85%;
-    max-width: 320px;
-    padding: 20px;
+    max-width: 340px;
+    padding: 30px;
     border-radius: 20px;
     z-index: 100;
     text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
 .hidden {
@@ -313,22 +359,169 @@ h1 {
     z-index: 10;
 }
 
-.pwa-guide {
-    background: rgba(var(--accent-rgb), 0.05);
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 0.75rem;
-    margin: 10px 0;
-    text-align: left;
-    border-left: 3px solid var(--accent-color);
+/* Header Layout */
+.header-right {
+    display: flex;
+    gap: 10px;
 }
 
-.neon-link {
-    color: var(--accent-color);
-    text-decoration: none;
+#paused-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 20;
 }
 
-.name-link {
+/* Elegant Info Modal */
+.minimal-info {
+    padding: 10px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.dev-card-elegant {
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dev-info-center {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dev-name-large {
+    font-size: 1.4rem;
     font-weight: 800;
-    font-size: 1.1rem;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.dev-role {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+}
+
+.school {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.5px;
+}
+
+.controls-elegant {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.ctrl-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.key-icon {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.action-label {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Info Link */
+.dev-name-large {
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.dev-name-large:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Theme Swatches Redesign */
+#theme-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 20px 0 30px 0;
+    /* More space bottom for close button */
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+}
+
+.theme-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    /* Soft square */
+    border: none;
+    background: var(--btn-color);
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.theme-btn::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 16px;
+    border: 2px solid var(--btn-color);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.theme-btn.active {
+    transform: scale(0.9);
+}
+
+.theme-btn.active::after {
+    opacity: 1;
+    box-shadow: 0 0 15px var(--btn-color);
+}
+
+/* Settings Item Spacing */
+.setting-item {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
 }
